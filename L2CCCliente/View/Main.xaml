@@ -1,0 +1,42 @@
+﻿<Window x:Class="L2CCCliente.View.Main"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:L2CCCliente.View"
+        mc:Ignorable="d"
+        Title="Packet Capture" Height="600" Width="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <Button Content="Carregar Processos" Command="{Binding LoadProcessesCommand}" Margin="5"/>
+            <ComboBox ItemsSource="{Binding Processes}" SelectedItem="{Binding SelectedProcess}" DisplayMemberPath="Id" Width="150" Margin="5"/>
+            <Button Content="Iniciar Captura" Command="{Binding StartCaptureCommand}" Margin="5"/>
+            <Button Content="Parar Captura" Command="{Binding StopCaptureCommand}" Margin="5"/>
+            <TextBox Text="{Binding OpcodeFilter, UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="5" ToolTip="Filtrar por Opcode (ex.: 6F)"/>
+        </StackPanel>
+
+        <ListView Grid.Row="1" ItemsSource="{Binding Packets}" Margin="10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Sequência" DisplayMemberBinding="{Binding Sequence}" Width="80"/>
+                    <GridViewColumn Header="Timestamp" DisplayMemberBinding="{Binding Timestamp}" Width="150"/>
+                    <GridViewColumn Header="Fonte" DisplayMemberBinding="{Binding Source}" Width="150"/>
+                    <GridViewColumn Header="Destino" DisplayMemberBinding="{Binding Destination}" Width="150"/>
+                    <GridViewColumn Header="Tamanho" DisplayMemberBinding="{Binding Size}" Width="80"/>
+                    <GridViewColumn Header="Opcode" DisplayMemberBinding="{Binding Opcode}" Width="80"/>
+                    <GridViewColumn Header="Direção" DisplayMemberBinding="{Binding Direction}" Width="80"/>
+                    <GridViewColumn Header="Tipo de Servidor" DisplayMemberBinding="{Binding ServerType}" Width="120"/>
+                    <GridViewColumn Header="Descrição" DisplayMemberBinding="{Binding Description}" Width="200"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <ListBox Grid.Row="2" ItemsSource="{Binding Messages}" Margin="10"/>
+    </Grid>
+</Window>
